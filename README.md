@@ -1,5 +1,7 @@
 # QanunAI
 
+Q&A assistant for Arabic legal documents (Egyptian Civil Code of 1948) providing exact article citations.
+
 Monorepo for QanunAI with:
 
 - **Backend**: Python + FastAPI using `uv`, organized with DDD-style layers.
