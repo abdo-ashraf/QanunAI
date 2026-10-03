@@ -4,16 +4,16 @@ from typing import Annotated, Any
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
-from application.services.rag_service import RagService
+from application.services.rag_service import RagEngine, RagService
 from domain.entities.knowledge_document import KnowledgeDocument
-from infrastructure.rag.haystack_rag_engine import HaystackQdrantRagEngine
+from infrastructure.rag.factory import create_rag_engine
 
 router = APIRouter(prefix="/rag", tags=["rag"])
 
 
 @lru_cache
-def get_rag_engine() -> HaystackQdrantRagEngine:
-    return HaystackQdrantRagEngine()
+def get_rag_engine() -> RagEngine:
+    return create_rag_engine()
 
 
 def get_rag_service() -> RagService:

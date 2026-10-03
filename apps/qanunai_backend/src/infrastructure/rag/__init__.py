@@ -1,1 +1,1 @@
-"""Haystack and Qdrant infrastructure adapters."""
+"""Haystack RAG infrastructure adapters (pgvector / Qdrant)."""

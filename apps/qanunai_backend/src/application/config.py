@@ -1,4 +1,5 @@
 from functools import lru_cache
+from typing import Literal
 
 from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -11,9 +12,14 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    rag_backend: Literal["pgvector", "qdrant"] = "pgvector"
+
     qdrant_url: str = "http://qdrant:6333"
     qdrant_collection: str = "qanunai_documents"
     qdrant_api_key: SecretStr | None = None
+
+    pg_conn_str: str = "postgresql://postgres:postgres@localhost:5432/postgres"
+    pg_table_name: str = "qanunai_documents"
 
     @field_validator("qdrant_api_key", mode="before")
     @classmethod
