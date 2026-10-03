@@ -1,0 +1,22 @@
+# -- run `pre-commit run --all-files` for manual local testing of pre-commit hooks --
+repos:
+  # -- Generic hygiene hooks maintained by the pre-commit project --
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # -- whitespace / file-ending --
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      # -- config-file validity --
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      # -- git --
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      # -- Python-specific --
+      - id: check-ast
+      - id: debug-statements
+      - id: check-executables-have-shebangs

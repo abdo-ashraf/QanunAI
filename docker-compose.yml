@@ -1,0 +1,7 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apps/qanunai_backend/Dockerfile
+    ports:
+      - "8000:8000"
