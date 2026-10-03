@@ -5,16 +5,16 @@ from haystack.components.generators.chat import OpenAIChatGenerator
 from haystack.components.writers import DocumentWriter
 from haystack.dataclasses import ChatMessage
 from haystack.utils import Secret
-from haystack_integrations.components.retrievers.qdrant import QdrantEmbeddingRetriever
-from haystack_integrations.document_stores.qdrant import QdrantDocumentStore
 
 from application.config import get_settings
 from application.services.rag_service import RagAnswer, RagEngine, RetrievedDocument
 from domain.entities.knowledge_document import KnowledgeDocument
 
 
-class HaystackQdrantRagEngine(RagEngine):
-    def __init__(self) -> None:
+class HaystackRagEngineBase(RagEngine):
+    """Shared Haystack RAG pipeline; subclasses provide the document store retriever."""
+
+    def __init__(self, document_store, retriever) -> None:
         settings = get_settings()
         embedding_api_key = Secret.from_token(
             settings.embedding_api_key.get_secret_value()
@@ -22,17 +22,7 @@ class HaystackQdrantRagEngine(RagEngine):
         generator_api_key = Secret.from_token(
             settings.generator_api_key.get_secret_value()
         )
-        qdrant_api_key = settings.qdrant_api_key
-        qdrant_secret: Secret | None = None
-        if qdrant_api_key is not None:
-            qdrant_secret = Secret.from_token(qdrant_api_key.get_secret_value())
-        self._document_store = QdrantDocumentStore(
-            url=settings.qdrant_url,
-            api_key=qdrant_secret,
-            index=settings.qdrant_collection,
-            embedding_dim=settings.embedding_dim,
-            recreate_index=False,
-        )
+        self._document_store = document_store
 
         self._indexing_pipeline = Pipeline()
         self._indexing_pipeline.add_component(
@@ -57,13 +47,7 @@ class HaystackQdrantRagEngine(RagEngine):
                 api_base_url=settings.embedding_base_url,
             ),
         )
-        self._rag_pipeline.add_component(
-            "retriever",
-            QdrantEmbeddingRetriever(
-                document_store=self._document_store,
-                top_k=settings.retriever_top_k,
-            ),
-        )
+        self._rag_pipeline.add_component("retriever", retriever)
         self._rag_pipeline.add_component(
             "prompt_builder",
             ChatPromptBuilder(

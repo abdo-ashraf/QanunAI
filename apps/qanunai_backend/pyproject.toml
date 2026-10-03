@@ -11,6 +11,7 @@ dependencies = [
     "fastapi>=0.142.2",
     "haystack-ai>=3.3.0",
     "langfuse-haystack>=3.3.0",
+    "pgvector-haystack>=7.0.0",
     "pydantic-settings>=2.11.0",
     "qdrant-haystack>=11.1.0",
     "uvicorn[standard]>=0.54.0",
