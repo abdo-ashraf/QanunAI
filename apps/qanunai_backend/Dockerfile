@@ -2,8 +2,11 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY apps/qanunai_backend/pyproject.toml apps/qanunai_backend/uv.lock ./
+COPY apps/qanunai_backend/pyproject.toml apps/qanunai_backend/uv.lock apps/qanunai_backend/README.md ./
 RUN pip install --no-cache-dir uv && python -m uv sync --frozen --no-install-project
+
+# for development
+COPY apps/qanunai_backend/.env .env
 
 COPY apps/qanunai_backend/src ./src
 RUN python -m uv sync --frozen
