@@ -1,0 +1,10 @@
+# Never bake local env/secrets into images — compose injects them at runtime
+**/.env
+
+.git
+**/__pycache__
+**/.venv
+**/.pytest_cache
+**/.ruff_cache
+**/node_modules
+graphify-out

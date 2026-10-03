@@ -3,6 +3,15 @@ services:
     build:
       context: .
       dockerfile: apps/qanunai_backend/Dockerfile
+    env_file:
+      - apps/qanunai_backend/.env
+    environment:
+      # Container-network overrides (environment: beats env_file:).
+      QDRANT_URL: http://qdrant:6333
+      # Remove this override if you switch to a hosted embedding provider.
+      EMBEDDING_BASE_URL: http://host.docker.internal:11434/v1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8000:8000"
     depends_on:

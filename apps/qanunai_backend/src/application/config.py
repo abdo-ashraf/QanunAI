@@ -1,12 +1,11 @@
 from functools import lru_cache
 
-from pydantic import SecretStr, field_validator
+from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
         env_prefix="",
         case_sensitive=False,
         extra="ignore",
@@ -33,6 +32,15 @@ class Settings(BaseSettings):
     generator_api_key: SecretStr
     generator_model: str = "gpt-4o-mini"
     generator_base_url: str | None = None
+
+    langfuse_tracing_enabled: bool = False
+    langfuse_public_key: SecretStr | None = None
+    langfuse_secret_key: SecretStr | None = None
+    langfuse_host: str = Field(
+        default="https://cloud.langfuse.com",
+        validation_alias=AliasChoices("LANGFUSE_BASE_URL", "LANGFUSE_HOST"),
+    )
+    langfuse_service_name: str = "qanunai-backend"
 
 
 @lru_cache

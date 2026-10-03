@@ -18,5 +18,7 @@ Monorepo for QanunAI with:
 ## Run locally
 
 ```bash
+cp apps/qanunai_backend/.env.example apps/qanunai_backend/.env
+# edit apps/qanunai_backend/.env with your API keys
 docker compose up --build
 ```

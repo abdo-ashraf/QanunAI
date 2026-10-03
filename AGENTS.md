@@ -10,6 +10,6 @@
 - Keep backend dependencies and commands managed via `uv`.
 
 ## Common commands
-- Backend: `cd apps/qanunai_backend && python -m uv run uvicorn presentation.app:app --host 0.0.0.0 --port 8000`
+- Backend: `cd apps/qanunai_backend && python -m uv run --env-file .env uvicorn presentation.app:app --host 0.0.0.0 --port 8000`
 - Frontend: `cd apps/qanunai_frontend && npm run dev -- --host 0.0.0.0 --port 5173`
 - Docker Compose: `docker compose up --build`
