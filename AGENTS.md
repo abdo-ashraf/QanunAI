@@ -1,5 +1,9 @@
 # AGENTS.md (Root)
 
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+
 ## Monorepo layout
 - `apps/qanunai_backend/`: Python backend using FastAPI, managed with `uv`, organized with DDD layers.
 - `apps/qanunai_frontend/`: React app with feature-based structure, using TanStack Query, shadcn/ui conventions, ai-elements tooling, and Zod validation.
