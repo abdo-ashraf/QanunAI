@@ -9,8 +9,8 @@ Monorepo for QanunAI with:
 
 ## Structure
 
-- `/backend`
-- `/frontend`
+- `/apps/qanunai_backend`
+- `/apps/qanunai_frontend`
 - `/docker-compose.yml`
 
 ## Run locally

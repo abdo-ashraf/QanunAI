@@ -1,4 +1,4 @@
-from qanunai_backend.domain.entities.legal_question import LegalQuestion
+from domain.entities.legal_question import LegalQuestion
 
 
 class HealthService:

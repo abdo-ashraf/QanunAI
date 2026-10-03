@@ -11,5 +11,5 @@ Run locally:
 
 ```bash
 python -m uv sync
-python -m uv run uvicorn qanunai_backend.presentation.app:app --reload
+python -m uv run uvicorn presentation.app:app --reload
 ```

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from qanunai_backend.application.services.health_service import HealthService
+from application.services.health_service import HealthService
 
 router = APIRouter(prefix="/health", tags=["health"])
 service = HealthService()
