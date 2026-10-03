@@ -5,12 +5,3 @@ services:
       dockerfile: apps/qanunai_backend/Dockerfile
     ports:
       - "8000:8000"
-
-  frontend:
-    build:
-      context: .
-      dockerfile: apps/qanunai_frontend/Dockerfile
-    ports:
-      - "5173:80"
-    depends_on:
-      - backend
