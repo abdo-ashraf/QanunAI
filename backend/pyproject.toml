@@ -1,0 +1,20 @@
+[project]
+name = "qanunai-backend"
+version = "0.1.0"
+description = "QanunAI backend service"
+readme = "README.md"
+authors = [
+    { name = "copilot-swe-agent[bot]", email = "198982749+Copilot@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.142.2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+qanunai-backend = "qanunai_backend:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
