@@ -13,4 +13,4 @@
 
 ## Local commands
 - Install/sync: `python -m uv sync`
-- Run API: `python -m uv run uvicorn presentation.app:app --reload`
+- Run API: `python -m uv run --env-file .env uvicorn presentation.app:app --reload`
