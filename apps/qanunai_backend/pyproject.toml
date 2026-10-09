@@ -11,14 +11,20 @@ dependencies = [
     "fastapi>=0.142.2",
     "haystack-ai>=3.3.0",
     "langfuse-haystack>=3.3.0",
+    "markdown-it-py>=4.2.0",
+    "mdit-plain>=1.0.1",
     "pgvector-haystack>=7.0.0",
+    "prometheus-client>=0.22.0,<1.0",
     "pydantic-settings>=2.11.0",
+    "pypdf>=6.20.0",
     "qdrant-haystack>=11.1.0",
+    "pyyaml>=6.0.2",
     "uvicorn[standard]>=0.54.0",
 ]
 
 [dependency-groups]
 dev = [
+    "dvc>=3.67.1",
     "pre-commit>=4.6.2",
     "ruff>=0.14.0,<0.15.0",
 ]
