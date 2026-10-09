@@ -9,10 +9,16 @@ services:
       # Container-network overrides (environment: beats env_file:).
       RAG_BACKEND: pgvector
       PG_CONN_STR: postgresql://postgres:postgres@postgres:5432/postgres
+      STORES_PATH: /app/stores
+      STORES_MANIFEST_PATH: /app/stores-manifest/indexing-manifest.json
+      PROMPTS_PATH: /app/prompts
       # Remove this override if you switch to a hosted embedding provider.
       EMBEDDING_BASE_URL: http://host.docker.internal:11434/v1
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - ./stores:/app/stores:ro
+      - stores_manifest:/app/stores-manifest
     ports:
       - "8000:8000"
     depends_on:
@@ -41,6 +47,81 @@ services:
     networks:
       - qanunai
 
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.17.1
+    environment:
+      DATA_SOURCE_NAME: postgresql://postgres:postgres@postgres:5432/postgres?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "9187"
+    networks:
+      - qanunai
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    command:
+      - "--path.rootfs=/host"
+    pid: host
+    read_only: true
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host:ro
+    expose:
+      - "9100"
+    networks:
+      - qanunai
+
+  langfuse-exporter:
+    build:
+      context: ./monitoring/langfuse-exporter
+    env_file:
+      - apps/qanunai_backend/.env
+    environment:
+      LANGFUSE_METRICS_WINDOW_SECONDS: "86400"
+      LANGFUSE_METRICS_INTERVAL_SECONDS: "60"
+    expose:
+      - "9800"
+    networks:
+      - qanunai
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres-exporter
+      - node-exporter
+      - langfuse-exporter
+    networks:
+      - qanunai
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - qanunai
+
   qdrant:
     image: qdrant/qdrant:latest
     profiles: ["qdrant"]  # start with: docker compose --profile qdrant up
@@ -63,3 +144,6 @@ networks:
 volumes:
   postgres_data:
   qdrant_storage:
+  stores_manifest:
+  prometheus_data:
+  grafana_data:
