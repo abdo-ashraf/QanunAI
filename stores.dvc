@@ -1,0 +1,6 @@
+outs:
+- md5: 04a6482cd26bd96acde963f071012b37.dir
+  size: 851387
+  nfiles: 1
+  hash: md5
+  path: stores
