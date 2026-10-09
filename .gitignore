@@ -24,3 +24,6 @@ build/
 # Local environment
 .env
 /stores
+
+# Stores indexing manifest (local cache, regenerated on startup)
+.stores-indexing-manifest.json
