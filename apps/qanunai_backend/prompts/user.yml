@@ -1,0 +1,5 @@
+text: |
+  Context:
+  {% for doc in documents %}- {{ doc.content }}
+  {% endfor %}
+  Query: {{ query }}
