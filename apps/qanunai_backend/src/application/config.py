@@ -34,6 +34,14 @@ class Settings(BaseSettings):
     embedding_dim: int = 768
 
     retriever_top_k: int = 5
+    retriever_score_threshold: float = Field(default=0.7, ge=0.0, le=1.0)
+
+    stores_path: str = "./stores"
+    stores_index_on_startup: bool = True
+    stores_chunk_size: int = 200
+    stores_chunk_overlap: int = 20
+    stores_manifest_path: str | None = None
+    prompts_path: str = "prompts"
 
     generator_api_key: SecretStr
     generator_model: str = "gpt-4o-mini"
