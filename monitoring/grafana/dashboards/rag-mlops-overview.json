@@ -313,10 +313,10 @@
       "title": "Host CPU busy (node-exporter)",
       "description": "Host CPU; enable Compose profile infra",
       "gridPos": {
-        "x": 16,
+        "x": 12,
         "y": 17,
-        "w": 8,
-        "h": 8
+        "w": 12,
+        "h": 14
       },
       "datasource": {
         "type": "prometheus",
@@ -354,9 +354,9 @@
       "description": "Python process RSS if client process collectors are enabled",
       "gridPos": {
         "x": 0,
-        "y": 25,
-        "w": 8,
-        "h": 7
+        "y": 17,
+        "w": 12,
+        "h": 14
       },
       "datasource": {
         "type": "prometheus",
@@ -657,9 +657,9 @@
       "title": "LLM total input tokens",
       "description": "Langfuse input tokens in the rolling 24-hour window",
       "gridPos": {
-        "x": 8,
+        "x": 0,
         "y": 64,
-        "w": 8,
+        "w": 12,
         "h": 5
       },
       "datasource": {
@@ -701,9 +701,9 @@
       "title": "LLM total output tokens",
       "description": "Langfuse output tokens in the rolling 24-hour window",
       "gridPos": {
-        "x": 16,
+        "x": 12,
         "y": 64,
-        "w": 8,
+        "w": 12,
         "h": 5
       },
       "datasource": {
