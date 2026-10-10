@@ -298,7 +298,7 @@ docker compose up --build
 | API docs | <http://localhost:8000/docs> | OpenAPI/Swagger UI |
 | Grafana | <http://localhost:3000> | Dashboards (`admin` / `admin`) |
 | Prometheus | <http://localhost:9090> | Metrics scraping & storage |
-| PostgreSQL | `localhost:5432` | pgvector store |
+| PostgreSQL | <localhost:5432> | pgvector store |
 | Qdrant (optional) | <http://localhost:6333> | Enable with the `qdrant` profile |
 
 To use Qdrant instead of pgvector:
