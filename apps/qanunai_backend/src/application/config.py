@@ -14,6 +14,16 @@ class Settings(BaseSettings):
 
     rag_backend: Literal["pgvector", "qdrant"] = "pgvector"
 
+    cors_allow_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_allow_origins_list(self) -> list[str]:
+        return [
+            origin.strip()
+            for origin in self.cors_allow_origins.split(",")
+            if origin.strip()
+        ]
+
     qdrant_url: str = "http://qdrant:6333"
     qdrant_collection: str = "qanunai_documents"
     qdrant_api_key: SecretStr | None = None
