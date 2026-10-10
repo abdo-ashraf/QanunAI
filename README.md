@@ -16,6 +16,7 @@ and a **full observability stack** (Prometheus + Grafana + Langfuse).
   - [Design Philosophy](#design-philosophy)
   - [System Architecture](#system-architecture)
   - [Request Lifecycle](#request-lifecycle)
+  - [Frontend Showcase](#frontend-showcase)
 - [2. Tech Stack](#2-tech-stack)
 - [3. Getting Started & Installation](#3-getting-started--installation)
   - [Prerequisites](#prerequisites)
@@ -135,6 +136,31 @@ flowchart LR
 4. **Response.** The answer plus accepted source documents/scores are returned
    and rendered in the chat UI. Provider outages surface as **HTTP 503** via the
    `AssistantUnavailableError` handler.
+
+### Frontend Showcase
+
+The React SPA delivers a bilingual chat experience — **Arabic (RTL, default)**
+and **English (LTR)** — where every answer is shown alongside its cited sources.
+The layout adapts from desktop to mobile.
+
+**Desktop**
+
+The chat landing and conversation views, including grounded answers with their
+retrieved sources:
+
+![QanunAI desktop UI — chat view](./assets/frontend_desktop_view_0.png)
+
+![QanunAI desktop UI — answer with citations](./assets/frontend_desktop_view_1.png)
+
+![QanunAI desktop UI — conversation with sources](./assets/frontend_desktop_view_2.png)
+
+**Mobile**
+
+The responsive layout renders the same experience on small screens:
+
+![QanunAI mobile UI — view 1](./assets/frontend_mobile_view_1.png)
+
+![QanunAI mobile UI — view 2](./assets/frontend_mobile_view_2.png)
 
 ---
 
